@@ -1,9 +1,10 @@
 package sistema_bancario;
 
-public class ContaPoupanca {
-
-	public ContaPoupanca() {
-		// TODO Auto-generated constructor stub
+public class ContaPoupanca extends Conta {
+	
+	//rende automaticamente
+	public ContaPoupanca(String nome, double saldo) {
+		super(nome, saldo);
 	}
 
 }

@@ -1,17 +1,19 @@
 package sistema_bancario;
 
 public abstract class Conta {
-	protected int numero;//vou fazer por auto-increment dps
+	protected static int count=100;
 	protected String nomeCliente;
 	protected Double saldo;
+	protected int numConta;
 
 	public Conta(String nome, Double saldo) {
 		this.nomeCliente=nome;
 		this.saldo=saldo;
+		this.numConta=count++;
 	}
 
 	public int getNumero() {
-		return numero;
+		return numConta;
 	}
 
 	public String getNomeCliente() {
@@ -45,8 +47,9 @@ public abstract class Conta {
 			destino.saldo+=valorTransferencia;
 		}
 		
-	
 		}
+
+
 
 
 }
