@@ -1,5 +1,6 @@
 package sistema_bancario;
 
+
 public class auxFuncoes {
 	void printMenu() {
 	 	System.out.println("=======Qual operação deseja realizar?=======");
@@ -18,5 +19,14 @@ public class auxFuncoes {
 		System.out.println("1 - Conta Poupança ");
 	}
 	
+	void ListarContas(Conta conta) {
+		System.out.println("			Banco		");
+		System.out.println("Número da conta:"+ conta.getNumero());
+		System.out.println("Nome do cliente:"+ conta.getNomeCliente());
+		System.out.println("Saldo atual:" + conta.getSaldo());
+		
+	}
 
 }
+
+
