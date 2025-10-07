@@ -20,7 +20,6 @@ public class auxFuncoes {
 	}
 	
 	void ListarContas(Conta conta) {
-		System.out.println("			Banco		");
 		System.out.println("Número da conta:"+ conta.getNumero());
 		System.out.println("Nome do cliente:"+ conta.getNomeCliente());
 		System.out.println("Saldo atual:" + conta.getSaldo());

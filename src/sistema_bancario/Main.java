@@ -12,7 +12,7 @@ public class Main {
 		int numConta;//conta origem
 		boolean contaExiste;
 		int numContaDestino; //conta destino
-		int valor;
+		Double valor;
 		Double tributos=0.0;
 		
 		while(validarWhile) {
@@ -65,7 +65,7 @@ public class Main {
 				numConta=sc.nextInt();
 				
 				System.out.println("Informe o valor a ser depositado.");
-				valor=sc.nextInt();
+				valor=sc.nextDouble();
 				
 				contaExiste=false;
 				
@@ -86,57 +86,88 @@ public class Main {
 				numConta=sc.nextInt();
 				
 				System.out.println("Informe o valor do saque.");
-				valor=sc.nextInt();
+				valor=sc.nextDouble();
 				
 				contaExiste=false;
 				sc.nextLine();
 				
 				for( Conta conta: listaContas) {
 					if(numConta==conta.getNumero()) {
-						conta.sacar(valor);
-						contaExiste=true;
-						System.out.println("Saque realizado com sucesso!");
-						break;
-					}
-				}if(contaExiste==false) {
-					System.out.println("Conta não encontrada.");
-				}
-				break;
-			case 3: //REALIZAR TRANSFERENCIA
-				System.out.println("Informe o número da conta de origem.");
-				numConta=sc.nextInt();
-				System.out.println("Informe o número da conta de destino.");
-				numContaDestino=sc.nextInt();
-				
-				System.out.println("Informe o valor da transferencia.");
-				valor=sc.nextInt();
-				
-				contaExiste=false;
-				sc.nextLine();
-				
-				for( Conta conta1: listaContas) {
-					
-					if(numConta==conta1.getNumero()) {
-						for(Conta conta2: listaContas) {
-							if(numContaDestino==conta2.getNumero()) {
-								conta1.transferir(valor, conta1, conta2);
-								contaExiste=true;
+						if(valor<0) {
+							System.out.println("Informe um valor válido");
+						}else if(valor>conta.saldo) {
+							System.out.println("Saldo insuficiente");
+						}else {
+							conta.sacar(valor);
+							
+							System.out.println("Saque realizado com sucesso!");
 							}
-						}
-						System.out.println("Saque realizado com sucesso!");
-						break;
 					}
-				}if(contaExiste==false) {
+					contaExiste=true;
+				}
+				if(contaExiste==false) {
 					System.out.println("Conta não encontrada.");
-					break;
 				}
 				break;
+				
+			case 3: // REALIZAR TRANSFERENCIA
+			    System.out.println("Informe o número da conta de origem.");
+			    numConta = sc.nextInt();
+			    System.out.println("Informe o número da conta de destino.");
+			    numContaDestino = sc.nextInt();
+
+			    System.out.println("Informe o valor da transferência.");
+			    valor = sc.nextDouble();
+
+			    sc.nextLine();
+			    contaExiste = false;
+
+			    Conta conta1 = null;
+			    Conta conta2 = null;
+
+			    for (Conta conta : listaContas) {
+			        if (numConta == conta.getNumero()) {
+			            conta1 = conta;
+			            break;
+			        }
+			    }
+
+			    for (Conta conta : listaContas) {
+			        if (numContaDestino == conta.getNumero()) {
+			            conta2 = conta;
+			            break;
+			        }
+			    }
+
+			    // Verificações
+			    if (conta1 == null || conta2 == null) {
+			        System.out.println("Conta de origem ou destino não encontrada.");
+			        break;
+			    }
+
+			    if (valor > conta1.getSaldo()) {
+			        System.out.println("Saldo insuficiente.");
+			        break;
+			    }
+
+			    // Realizar transferência
+			    conta1.transferir(valor, conta1, conta2);
+			    System.out.println("Transferência realizada com sucesso!");
+			    break;
+
+				
 			case 4: //LISTAR CONTAS
+				System.out.println("\n======================================");
+				System.out.println("		Bank.o		");
 				for( Conta conta: listaContas) {
 					auxFuncoes.ListarContas(conta);
+					System.out.println("\n____________________________________");
 					}
+				System.out.println("\n======================================");
 				break;
+				
 			case 5: //CALCULAR TRIBUTOS
+				tributos=0.0;
 				for (Conta conta: listaContas) {
 					if(conta instanceof ITributavel) {
 						System.out.println("Contas correntes:" + conta.getNumero());
@@ -149,6 +180,7 @@ public class Main {
 				break;
 			case 6: //SAIR
 				validarWhile=false;
+				break;
 			default: 
 				System.out.println("Informe uma opção válida.");
 				break;

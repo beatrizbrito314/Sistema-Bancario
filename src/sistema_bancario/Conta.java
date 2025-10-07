@@ -24,13 +24,7 @@ public abstract class Conta {
 		return saldo;
 	}
 	void sacar(double valorSaque) {
-		if(valorSaque<0) {
-			System.out.println("Informe um valor válido");
-		}else if(valorSaque>this.saldo) {
-			System.out.println("Saldo insuficiente");
-		}else {
 			this.saldo-=valorSaque;
-		}
 	}
 	void depositar(double valorDeposito) {
 		if(valorDeposito<=0) {
@@ -40,13 +34,8 @@ public abstract class Conta {
 		}
 		}
 	void transferir(double valorTransferencia, Conta origem, Conta destino) {
-		if(valorTransferencia>origem.saldo) {
-			System.out.println("Saldo insuficiente");
-		}else {
 			origem.saldo-=valorTransferencia;
 			destino.saldo+=valorTransferencia;
-		}
-		
 		}
 
 
